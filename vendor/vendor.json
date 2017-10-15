@@ -11,6 +11,10 @@
 			"revision": ""
 		},
 		{
+			"path": "appengine/cloudsql",
+			"revision": ""
+		},
+		{
 			"path": "appengine_internal",
 			"revision": ""
 		},
@@ -159,6 +163,12 @@
 		{
 			"path": "fmt",
 			"revision": ""
+		},
+		{
+			"checksumSHA1": "c4id9KLO6q2M0iZ+kWKnMi2aRbg=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "eb92a8dc628ca52501ddae1ed90eca7514f215bf",
+			"revisionTime": "2017-10-12T08:31:18Z"
 		},
 		{
 			"path": "github.com/golang/protobuf/proto",

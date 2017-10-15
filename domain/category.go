@@ -1,4 +1,4 @@
-package pumpkin_voter
+package domain
 
 type category struct {
 	ID int64

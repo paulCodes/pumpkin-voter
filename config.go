@@ -20,10 +20,11 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
+	"github.com/paulCodes/pumpkin-voter/domain"
 )
 
 var (
-	DB          BookDatabase
+	DB          domain.EntryStore
 	OAuthConfig *oauth2.Config
 
 	StorageBucket     *storage.BucketHandle
@@ -43,7 +44,7 @@ func init() {
 	var err error
 
 	// To use the in-memory test database, uncomment the next line.
-	DB = newMemoryDB()
+	//DB = newMemoryDB()
 
 	// [START cloudsql]
 	// To use Cloud SQL, uncomment the following lines, and update the username,
