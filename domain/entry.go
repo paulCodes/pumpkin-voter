@@ -5,6 +5,7 @@ type EntryStore interface{
 	Replace(course *Entry) error
 	Delete(id string) error
 	FindById(id string) (Entry, error)
+	ListAll() ([]Entry, error)
 }
 
 type Entry struct {

@@ -1,0 +1,173 @@
+.sidebar {
+    display: none;
+}
+.navbar {}
+.navbar .btn {top:70px;}
+.topmenu{color: #fff; font-size: 25px;  position: relative; float:left; padding-top: 8px; padding-left: 60px;}
+.topmenu div {top:70px;}
+.container-fluid{box-shadow: 0px 1px 5px #333;}
+.main {
+    padding: 20px;
+    margin-top: 50px;
+}
+.navbar-inverse{
+	border:none;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+
+.qtip{
+	font-size:14px;
+}
+.loginnav{
+	display:none;
+}
+.form-signin-heading{
+	border-bottom: 1px solid #CCC;
+	padding-bottom: 10px;
+}
+.sectiontitle{
+	position:fixed;
+	width: 100%;
+	box-shadow: 0px 1px 5px #CCC;
+	background-color: white;
+	height: 70px;
+	top: 50px;
+	z-index:999;
+	padding-left: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.navbar-inverse {
+background-color: #FFA845;
+}
+.navbar-nav.navbar-right:last-child {
+margin-right: -15px;
+}
+.navbar-brand{
+	position:absolute;z-index:3000; width: 60px; padding:0px 0px 0px 3px; height: auto !important; left:0px;
+}
+.navbar-inverse .navbar-toggle, .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+background-color: #e67a00;
+}
+
+.form-signin .form-control {
+	margin: 10px 0px;
+}
+.breadcrumb {
+	position: absolute;
+	top: 150px;
+	left: 7px;
+	z-index:1300;
+	background:none;
+}
+
+
+.navbar-inverse .navbar-brand {
+	 background-color:#FFA845; padding-bottom: 2px;
+}
+@media (min-width:768px){
+	.navbar-inverse .navbar-brand {background-color:#555;} .navbar-brand{left:15px;}
+	.navbar-inverse {background-color: #666;}
+	.navbar-inverse .navbar-nav>li>a {color: #bbb;}
+}
+
+
+.navbar-right{
+
+}
+.absolute{position:absolute;}
+.fixed{position:fixed;}
+.sidebartooltip{background:white;font-size:14px;padding:5px;left:90px;border-top: 1px dashed #CCC;
+border-bottom: 1px dashed #CCC;
+border-right: 1px dashed #CCC;}
+.page-header, .sub-header{
+	color: #6c757e;
+	font-size:25px;
+}
+@media (min-width: 768px) {
+	.navbar-inverse a.navbar-brand:hover{
+	 background-color:#666;
+	}
+	.loginnav{
+		display:block;
+	}
+	.sidebar {
+		position: fixed;
+		top: 50px;
+		bottom: 0;
+		left: 0;
+		display: block;
+		padding: 10px 0px;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		background-color: #FFA845;
+	}
+	.main {
+		padding-right: 40px;
+		padding-left: 0;
+	}
+	.breadcrumb{left: 98px;}
+
+	.page-header, .sub-header{
+
+	}
+	.mobileonly{display:none !important;}
+	.sectiontitle{padding-left:80px;}
+}
+.nav>li>a {
+	font-size:18px;
+}
+
+.nav-sidebar>li>a {
+	color: #7A3100;
+	text-align:center;
+	font-size:24px;
+	height: 50px;
+}
+.nav-sidebar>li>a.active {
+	color: #30572a;
+}
+.nav>li>a:hover{background-color:#B05E00;}
+.nav>li>a:hover{color:#EEE;}
+.nav-sidebar>li{width:60px;height:53px;}
+body{background-color: #f6f6f6;}
+
+/*
+* Placeholder dashboard ideas
+*/
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.placeholders h4 {
+    margin-bottom: 0;
+}
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+.placeholder img {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.qtip-bigger-font {
+    font-size: 16px;
+}
+
+input[name=Expiration] {
+    position: relative;
+    z-index: 2000;
+}
+
+.create-stub-group td{
+    padding-bottom: 15px;
+    padding-right: 15px;
+}

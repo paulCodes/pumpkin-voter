@@ -165,6 +165,48 @@
 			"revision": ""
 		},
 		{
+			"path": "git.jcasolutions.com/jca/traininglocker/domain",
+			"revision": ""
+		},
+		{
+			"path": "git.jcasolutions.com/jca/traininglocker/interface/relationaldb",
+			"revision": ""
+		},
+		{
+			"path": "git.jcasolutions.com/jca/traininglocker/payment",
+			"revision": ""
+		},
+		{
+			"path": "git.jcasolutions.com/jca/traininglocker/tlserve",
+			"revision": ""
+		},
+		{
+			"path": "git.jcasolutions.com/jca/traininglocker/webapp",
+			"revision": ""
+		},
+		{
+			"path": "git.jcasolutions.com/jca/traininglocker/webapp/webtype",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "QCaIDXpZPgVvxPM+AXzeOW6D97A=",
+			"path": "github.com/bluele/gforms",
+			"revision": "ac0a9c72d260a96e20e4a6af0d5c138cce383357",
+			"revisionTime": "2016-02-29T14:15:23Z"
+		},
+		{
+			"checksumSHA1": "w0tKAADAfc6jNZR/sSqjSXsw3Hg=",
+			"path": "github.com/denisenkom/go-mssqldb",
+			"revision": "88555645b640cc621e32f8693d7586a1aa1575f4",
+			"revisionTime": "2017-10-06T17:24:03Z"
+		},
+		{
+			"checksumSHA1": "+aDUSZ9oT3Oh6FpmSAZhpim1j00=",
+			"path": "github.com/flosch/pongo2",
+			"revision": "1f4be1efe3b3529b7e58861f75d70120a9567dc4",
+			"revisionTime": "2017-09-06T22:20:41Z"
+		},
+		{
 			"checksumSHA1": "c4id9KLO6q2M0iZ+kWKnMi2aRbg=",
 			"path": "github.com/go-sql-driver/mysql",
 			"revision": "eb92a8dc628ca52501ddae1ed90eca7514f215bf",
@@ -211,10 +253,22 @@
 			"revision": ""
 		},
 		{
-			"checksumSHA1": "iIUYZyoanCQQTUaWsu8b+iOSPt4=",
+			"checksumSHA1": "g/V4qrXjUGG9B+e3hB+4NAYJ5Gs=",
 			"path": "github.com/gorilla/context",
-			"revision": "215affda49addc4c8ef7e2534915df2c8c35c6cd",
-			"revisionTime": "2014-12-17T16:02:51Z"
+			"revision": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42",
+			"revisionTime": "2016-08-17T18:46:32Z"
+		},
+		{
+			"checksumSHA1": "/lWfaq/Ok+El1amGaf3wPY5JpUc=",
+			"path": "github.com/gorilla/handlers",
+			"revision": "a4d79d4487c2430a17d9dc8a1f74d1a6ed6908ca",
+			"revisionTime": "2017-06-02T15:16:48Z"
+		},
+		{
+			"checksumSHA1": "HEEx7LDDtZ8vwZauJtzdTc/uDa8=",
+			"path": "github.com/gorilla/mux",
+			"revision": "9bd9ff2d1d2a0660d35050674f2c3112547997af",
+			"revisionTime": "2017-10-10T21:54:56Z"
 		},
 		{
 			"checksumSHA1": "+jnSsJXR2CJsA6VCFOBHuCGsiDw=",
@@ -229,12 +283,54 @@
 			"revisionTime": "2015-04-17T17:47:05Z"
 		},
 		{
+			"checksumSHA1": "HpnVP25yXZys8uwdVe25MKMIwn8=",
+			"path": "github.com/juju/errors",
+			"revision": "c7d06af17c68cd34c835053720b21f6549d9b0ee",
+			"revisionTime": "2017-07-03T01:00:42Z"
+		},
+		{
 			"path": "github.com/paulCodes/pumpkin-voter",
 			"revision": ""
 		},
 		{
 			"path": "github.com/paulCodes/pumpkin-voter/app",
 			"revision": ""
+		},
+		{
+			"checksumSHA1": "bQ+Wb430AXpen54AYtrR1Igfh18=",
+			"path": "github.com/sebest/xff",
+			"revision": "6c115e0ffa35d6a2e3f7a9e797c9cf07f0da4b9f",
+			"revisionTime": "2016-09-10T04:38:05Z"
+		},
+		{
+			"checksumSHA1": "XDd7mdMLztCXX9eCfAElpTKp30g=",
+			"path": "github.com/stripe/stripe-go",
+			"revision": "f79e65d9d291cdf32164d17dff43908594766cbc",
+			"revisionTime": "2017-10-13T23:03:16Z"
+		},
+		{
+			"checksumSHA1": "f3w9bgOzBZozw9qEuPLcQb94EEc=",
+			"path": "github.com/stripe/stripe-go/form",
+			"revision": "f79e65d9d291cdf32164d17dff43908594766cbc",
+			"revisionTime": "2017-10-13T23:03:16Z"
+		},
+		{
+			"checksumSHA1": "y5AD80EvDutFqGuAYsBtcya6ntM=",
+			"path": "github.com/stripe/stripe-go/orderitem",
+			"revision": "f79e65d9d291cdf32164d17dff43908594766cbc",
+			"revisionTime": "2017-10-13T23:03:16Z"
+		},
+		{
+			"checksumSHA1": "ClyNDKGVhQH1K/IXbLZ1qMv0ddA=",
+			"path": "github.com/twinj/uuid",
+			"revision": "7bbe408d339787c56ec15568c947c0959db1b275",
+			"revisionTime": "2016-09-09T07:54:38Z"
+		},
+		{
+			"checksumSHA1": "MCeXr2RNeiG1XG6V+er1OR0qyeo=",
+			"path": "golang.org/x/crypto/md4",
+			"revision": "9419663f5a44be8b34ca85f08abc5fe1be11f8a3",
+			"revisionTime": "2017-09-30T17:45:11Z"
 		},
 		{
 			"checksumSHA1": "dr5+PfIRzXeN+l1VG+s0lea9qz8=",
@@ -569,6 +665,30 @@
 			"revision": ""
 		},
 		{
+			"checksumSHA1": "zXpyz8XBJn94J5Los2t8MR7qP9s=",
+			"path": "gopkg.in/gcfg.v1",
+			"revision": "298b7a6a3838f79debfaee8bd3bfb2b8d779e756",
+			"revisionTime": "2017-10-13T16:07:59Z"
+		},
+		{
+			"checksumSHA1": "LExJ7qoRMacllJ0cGb0mYpK1b/s=",
+			"path": "gopkg.in/gcfg.v1/scanner",
+			"revision": "298b7a6a3838f79debfaee8bd3bfb2b8d779e756",
+			"revisionTime": "2017-10-13T16:07:59Z"
+		},
+		{
+			"checksumSHA1": "9agO8MliOVQGjMcOIV7g7LPHeFY=",
+			"path": "gopkg.in/gcfg.v1/token",
+			"revision": "298b7a6a3838f79debfaee8bd3bfb2b8d779e756",
+			"revisionTime": "2017-10-13T16:07:59Z"
+		},
+		{
+			"checksumSHA1": "A2FpDz2muvMPC91Ec63wmUPfxFE=",
+			"path": "gopkg.in/gcfg.v1/types",
+			"revision": "298b7a6a3838f79debfaee8bd3bfb2b8d779e756",
+			"revisionTime": "2017-10-13T16:07:59Z"
+		},
+		{
 			"checksumSHA1": "1D8GzeoFGUs5FZOoyC2DpQg8c5Y=",
 			"path": "gopkg.in/mgo.v2",
 			"revision": "3f83fa5005286a7fe593b055f0d7771a7dce4655",
@@ -597,6 +717,12 @@
 			"path": "gopkg.in/mgo.v2/internal/scram",
 			"revision": "3f83fa5005286a7fe593b055f0d7771a7dce4655",
 			"revisionTime": "2016-08-18T02:01:20Z"
+		},
+		{
+			"checksumSHA1": "ALQFMX3kmJkyB/8VEzVnGZG1H4A=",
+			"path": "gopkg.in/warnings.v0",
+			"revision": "8a331561fe74dadba6edfc59f3be66c22c3b065d",
+			"revisionTime": "2016-08-15T18:11:09Z"
 		},
 		{
 			"path": "hash",

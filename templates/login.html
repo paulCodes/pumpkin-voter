@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style type="text/css">
+    .top-bar {
+        display: none;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block container %}
+<div class="page-login">
+    <div class="container">
+        <form method="post" role="form" class="form-signin {{ class_ }}">
+            {{ form.hidden_tag() }}
+            <h2 class="form-signin-heading">Please sign in</h2>
+
+            {% if _flashes %}
+            <div class="flashes">
+                {% for message in _flashes %}
+                <div class="alert alert-{{ message.FlashType }}" role="alert">{{ message.Msg }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div style="margin-bottom: 1em">
+                <form method="post" class="uk-form-stacked">
+                    {% for field in form.Fields %}
+                    <div class="uk-margin {% if field.errors %}uk-form-danger{% endif %}">
+                        <label for="{{ field.Id }}" class="control-label">{{ field.GetLabel }}:</label>
+                        {{ field.Html|safe }}
+                        {% if field.Description %}
+                        <span class="uk-form-help-block">{{ field.Description }}</span>
+                        {% endif %}
+                        {% if field.Errors %}
+                        {% for e in field.Errors %}
+                        <span class="uk-form-help-block uk-form-danger">{{ e }}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button class="uk-button uk-button-primary" type="submit">Sign in</button>
+                </form>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
