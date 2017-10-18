@@ -1,0 +1,11 @@
+{% extends "../list.html" %}
+{% block header %}ALL THE CONTESTS{% endblock %}
+
+{% block button_action %}
+<button class="btn btn-primary" onclick="location.href='/voter/contest/create'"><i class="fa fa-plus-circle"></i> Create Contest</button>
+{% endblock %}
+
+{% block row_links %}
+<a href="/voter/contest/edit/{{ model.Contest.Id }}"><i class="fa fa-edit" title="Edit"></i></a>
+<a class="delete-course" href="/voter/contest/delete/{{ model.Contest.Id }}"><i class="fa fa-trash" title="Delete Contest"></i></a>
+{% endblock %}

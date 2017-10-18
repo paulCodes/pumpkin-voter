@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block extra_page_header_class %}page-header-for-list{% endblock %}
+
+{% block main %}
+
+<div class="table-outside-wrapper">
+    <table class="uk-table uk-table-striped">
+        {% block table_head %}
+        <thead>
+        <tr>
+            <th class="no-sort" {% block table_head_column1_styles %}style="width: 35px;"{% endblock %}>
+                &nbsp;
+            </th>
+            {% for field in stub.AdminListFields() %}
+            {% if field.1 != "no-form" %}
+            <th class="reorderable" data-name="{{ field.0 }}" data-filter="{{ field.2 }}">{{ stub.GorpTitle(field.0) }}&nbsp;
+                <a id="ecf-open-{{ forloop.Counter0 }}" onclick="openTableHeaderOptions({{ forloop.Counter0 }})" class="btn-table-header">
+                    <i class="fa fa-caret-down"></i>
+                </a>
+            </th>
+            {% endif %}
+            {% endfor %}
+            {% block custom_titles %}
+            {% endblock %}
+        </tr>
+        </thead>
+        {% endblock %}
+
+        {% block table_body %}
+        <tbody>
+        {% spaceless %}
+        {% for model in models %}
+        <tr>
+            <td {% block table_body_column1_styles %}{% endblock %}>
+                {% block row_links %}
+                {% endblock %}
+            </td>
+            {% for field in model.AdminListFields() %}
+            {% if field.1 != "no-form" %}
+            <td>{% trim %}
+                {% if field.1 == "select" || field.1 == "select-confirm" %}
+                {{ model.ByFieldChoice(field.0) }}
+                {% elif field.1 == "date" %}
+                {% if model.ByField(field.0) != 0 %}
+                {{ model.ByFieldForList(field.0)|makeTimeFromEpoch|date:"01/02/06 15:04" }}
+                {% endif %}
+                {% elif field.1 == "date-warning" %}
+                {% if model.ByField(field.0) != 0 %}
+                {{ model.ByFieldForList(field.0)|makeTimeFromEpoch|date:"01/02/06 15:04" }}
+                {% endif %}
+                {% else %}
+                {{ model.ByFieldForList(field.0) }}
+                {% endif %}
+                {% endtrim %}</td>
+            {% endif %}
+            {% endfor %}
+            {% block custom_rows %}
+            {% endblock %}
+        </tr>
+        {% endfor %}
+        {% endspaceless %}
+        </tbody>
+        {% endblock %}
+    </table>
+</div>
+{% block modals %}
+{% endblock %}
+{% endblock %}
+
+
+
+{% block body_js %}
+<script type="text/javascript" src="/static/3rd/sortable/Sortable.js"></script>
+<script type="text/javascript" src="/static/3rd/DataTables-1.10.13/extensions/ColReorderNoDrag/js/dataTables.colReorder.js"></script>
+<script type="text/javascript" src="/static/3rd/jquery.floatThead.js"></script>
+<script type="text/javascript" src="/static/js/shared/admin/list.js"></script>
+<script type="text/javascript">
+    var listSettings = {{listSettings|safe|default:"''"}};
+    var listSettingsKey = {{listSettingsKey|json|safe|default:"''"}};
+    var defaultSettings = {{defaultSettings|safe|default:"''"}};
+    $(function() {
+        convertTablesToDatatable();
+    });
+</script>
+{% endblock %}
+
+{% block modals_js %}
+{% endblock %}

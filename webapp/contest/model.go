@@ -1,10 +1,10 @@
 package contest
 
 import (
-	"fmt"
 	"github.com/paulCodes/pumpkin-voter/domain"
 	"github.com/paulCodes/pumpkin-voter/domain/mysql"
 	"strconv"
+	"github.com/paulCodes/pumpkin-voter/pvform"
 )
 
 type ContestLister struct {
@@ -25,8 +25,22 @@ func (e ContestLister) AdminListFields() [][]string {
 	}
 }
 
+func (e ContestLister) AdminListFields3Col() []pvform.ThreeCol {
+	return []pvform.ThreeCol{
+		{
+			GroupName:  "Contest",
+			LabelWidth: 3,
+			InputWidth: 9,
+			Fields: []pvform.FormField{
+				{Title: "Title", Type: "text", ClarifyingText: "CT_PrepAdmin_ExamEdit_Name", IsRequired: true},
+				{Title: "CategoryIds", Type: "text", ClarifyingText: "CT_PrepAdmin_ExamEdit_Tag",},
+				{Title: "Active", Type: "select", ClarifyingText: "CT_PrepAdmin_ExamEdit_Active"},
+			},
+		},
+	}
+}
+
 func (e ContestLister) ByField(s string) interface{} {
-	println(fmt.Sprintf("s %v", s))
 	if s == "Id" {
 		return e.Id
 	}
@@ -51,4 +65,24 @@ func (e ContestLister) ByFieldAsString(s string) string {
 		return strconv.FormatBool(e.ByField(s).(bool))
 	}
 	return e.ByField(s).(string)
+}
+
+func (e ContestLister) ByFieldChoice(s string) string {
+	choices := e.FieldChoices(s)
+	for _, v := range choices {
+		if e.ByFieldAsString(s) == v[0] {
+			return v[1]
+		}
+	}
+	return "CHOICE_NOT_FOUND"
+}
+
+func (e ContestLister) FieldChoices(s string) [][]string {
+	if s == "Active" {
+		return [][]string{
+			{"false", "No"},
+			{"true", "Yes"},
+		}
+	}
+	panic("FieldChoices: field not found: " + s)
 }

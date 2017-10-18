@@ -1,7 +1,6 @@
 package mysql
 
 import (
-	"fmt"
 	"github.com/paulCodes/pumpkin-voter/domain"
 	"strings"
 )
@@ -15,11 +14,27 @@ func (s MysqlStore) ContestStore() MysqlContestStore {
 }
 
 func (s MysqlContestStore) All() (contests []domain.Contest, err error) {
-	var t int
-	err = s.db.SelectOne(&t, `select count(*) from contest`)
 	_, err = s.db.Select(&contests, `select * from contest`)
-	println(fmt.Sprintf("t %v", t))
 	return
+}
+
+func (s MysqlContestStore) Add(contest domain.Contest) error {
+	return s.db.Insert(&contest)
+}
+
+func (e MysqlContestStore) GetID(id string) (contest domain.Contest, err error) {
+	err = e.db.SelectOne(&contest, `select * from contest where id = ?`, id)
+	return
+}
+
+func (e MysqlContestStore) Replace(contest domain.Contest) error {
+	_, err := e.db.Update(&contest)
+	return err
+}
+
+func (e MysqlContestStore) Delete(contest domain.Contest) error {
+	_, err := e.db.Delete(&contest)
+	return err
 }
 
 func (s MysqlContestStore) getIdColumn() string {

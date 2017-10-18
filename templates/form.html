@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form method="post" id="admin-form" class="form-horizontal">
+    <div class="main-content">
+        <div class="main-content-body">
+            <div class="row">
+                {% for col in model.AdminListFields3Col() %}
+                <div class="col-lg-4">
+                    <div class="main-content-header">
+                        <h3 class="">{{ col.GroupName }}</h3>
+                    </div>
+                    {% for field in col.Fields %}
+                    <div class="form-group">
+                        <label class="col-sm-{{ col.LabelWidth }} control-label">{{model.GorpTitle(field.Title)}}:</label>
+                        <!--
+                        <input type="text" class="form-control dark">
+                        -->
+                        {% if field.Type == "flat" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <div style="padding-top: 9px">{{ model.ByField(field.Title) }}</div>
+                        </div>
+                        {% elif field.Type == "date" %}
+                        <div class="col-sm-{{ col.InputWidth - 1 }}">
+                            <input id="{{ field.Title }}" type="hidden" name="{{ field.Title }}"
+                                   value="{{ model.ByField(field.Title) }}" size="30">
+                            <input id="{{ field.Title }}_datepicker" type="text"
+                                   class="form-control default-input datepicker-test-available"
+                                   readonly name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   value="" size="30"
+                                   {% if field.IsRequired %} placeholder="Required" {% endif %}>
+                        </div>
+                        <div id="{{ field.Title }}_datepicker_clear" class="col-sm-1">
+                        </div>
+                        {% elif field.Type == "date-warning" %}
+                        <div class="col-sm-{{ col.InputWidth - 1 }}">
+                            <input id="{{ field.Title }}" type="hidden" name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   value="{{ model.ByField(field.Title) }}" size="30">
+                            <input id="{{ field.Title }}_datepicker" type="text"
+                                   class="form-control default-input  datepicker-test-available date-warn"
+                                   readonly name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   value="" size="30"
+                                   {% if field.IsRequired %} placeholder="Required" {% endif %}>
+                        </div>
+                        <div id="{{ field.Title }}_datepicker_clear" class="col-sm-1">
+                        </div>
+                        {% elif field.Type == "spin" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <input id="{{ field.Title }}" type="number" name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   class="aSpinEdit spin-input form-control default-input option-displayOrder"
+                                   value="{{ model.ByField(field.Title) }}" size="30">
+                        </div>
+                        {% elif field.Type == "int" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <input id="{{ field.Title }}" type="number" name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   class="aSpinEdit spin-input form-control default-input option-displayOrder"
+                                   value="{{ model.ByField(field.Title) }}" size="30">
+                        </div>
+                        {% elif field.Type == "int-checkbox" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <input id="{{ field.Title }}" type="number" name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   class="form-control default-input option-displayOrder"
+                                   value="{{ model.ByField(field.Title) }}" size="30">
+                            <label>
+                                <input type="checkbox" name="{{ field.Title }}-checkbox"
+                                       title="{{ translations.Get(field.ClarifyingText) }}"
+                                       id="{{ field.Title }}-checkbox" class="{{ field.Title }}-checkbox"
+                                       value="true" checked="{{ model.ByField(field.Title) }}">
+                                {{model.ByFieldLabel(field.Title) }}
+                            </label>
+                        </div>
+                        {% elif field.Type == "int-checkbox-testwindow" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <input style="display: inline-block; width: 150px;" id="{{ field.Title }}" type="number"
+                                   min="0" name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   class="form-control default-input option-displayOrder"
+                                   value="{{ model.ByField(field.Title) }}"
+                                   {% if model.ByField(field.Title)=="Unlimited" %}disabled="disabled"{% endif %}
+                                   size="30">
+                            <label>
+                                <input style="height: inherit;" type="checkbox" name="{{ field.Title }}-checkbox"
+                                       id="{{ field.Title }}-checkbox"
+                                       class="{{ field.Title }}-checkbox" value="true"
+                                       title="{{ translations.Get(field.ClarifyingText) }}"
+                                       {% if model.ByField(field.Title) == "Unlimited"%}checked="checked"{% endif %}>
+                                {{ model.ByFieldLabel(field.Title) }}
+                            </label>
+                        </div>
+                        {% elif field.Type == "int-checkbox-freesession" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <input style="display: inline-block; width: 150px;" id="{{ field.Title }}" type="number"
+                                   min="0" name="{{ field.Title }}"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   class="form-control default-input option-displayOrder"
+                                   value="{{ model.ByField(field.Title) }}"
+                                   {% if model.ByField(field.Title)=="free" %}disabled="disabled"{% endif %}
+                                   size="30">
+                            <label>
+                                <input style="height: inherit;" type="checkbox" name="{{ field.Title }}-checkbox"
+                                       id="{{ field.Title }}-checkbox"
+                                       class="{{ field.Title }}-checkbox" value="true"
+                                       title="{{ translations.Get(field.ClarifyingText) }}"
+                                       {% if model.ByField(field.Title) == "free"%}checked="checked"{% endif %}>
+                                {{ model.ByFieldLabel(field.Title) }}
+                            </label>
+                        </div>
+                        {% elif field.Type == "textarea" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                                <textarea id="{{ field.Title }}" name="{{ field.Title }}"
+                                          class="form-control default-input" rows="5" cols="60"
+                                          title="{{ translations.Get(field.ClarifyingText) }}"
+                                          {% if field.IsRequired %} placeholder="Required" {% endif %}
+                                >{{ model.ByField(field.Title) }}</textarea>
+                        </div>
+                        {% elif field.Type == "select" || field.Type == "select-confirm" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <select id="{{ field.Title }}" name="{{ field.Title }}"
+                                    class="form-control default-input"
+                                    title="{{ translations.Get(field.ClarifyingText) }}">
+                                {% for choice in model.FieldChoices(field.Title) %}
+                                <option value="{{ choice.0 }}"
+                                        {% if model.ByFieldAsString(field.Title)== choice.0 %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% elif field.Type == "id" %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            {% if model.ByField(field.Title) == "" %}
+                            <input id="{{ field.Title }}" type="text" name="{{ field.Title }}"
+                                   class="form-control default-input "
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   value="{{ model.ByField(field.Title) }}"
+                                   size="30"
+                                   {% if field.IsRequired %} placeholder="Required" {% endif %}>
+                            {% else %}
+                            {{ model.ByField(field.Title) }}
+                            {% endif %}
+                        </div>
+                        {% elif field.Type == "no-form" %}
+
+                        {% else %}
+                        <div class="col-sm-{{ col.InputWidth }}">
+                            <input id="{{ field.Title }}" type="text" name="{{ field.Title }}"
+                                   class="form-control default-input"
+                                   title="{{ translations.Get(field.ClarifyingText) }}"
+                                   value="{% if model.UseInitial %}{{ field.Initial }}{% else %}{{ model.ByField(field.Title) }}{% endif %}"
+                                   size="30"
+                                   {% if field.IsRequired %} placeholder="Required" {% endif %}>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% block custom_fields %}{% endblock %}
+
+        <div class="main-content-footer text-left">
+            <a class="btn-cancel" title="Return to the list without saving changes."><i class="fa fa-stop"></i> <span>CANCEL</span></a>
+            <a class="btn-submit" title="Save all changes and return to the list." onclick="$('#admin-form').submit();"><i class="fa fa-share"></i> <span>SUBMIT</span></a>
+            {% block extra_buttons %}{% endblock %}
+        </div>
+    </div>
+</form>
+{% block modals %}
+{% endblock %}
+{% endblock %}
+
+{% block backsies_js %}
+<script type="text/javascript">
+    $(function() {
+        $.backsies({
+            saves:["#admin-form > button", "button:submit", ".btn-submit"],
+            ignores:[".dataTables_wrapper :input", "input[id*='yadcf-']", "input[type=search]"]
+        });
+    });
+</script>
+{% endblock %}
+{% block body_js %}
+{% block modals_js %}
+{% endblock %}
+<script>
+
+    // Indicate which form fields have validation errors - BEGIN
+    {% for flash in SessionFlashes %}
+    $('#{{flash.FieldId}}').addClass('validationError');
+    {% endfor %}
+    // Indicate which form fields have validation errors - END
+
+    $(function() {
+        var cancelRedirect = "{{ cancelRedirect }}";
+        if (cancelRedirect.length > 3) {
+            $('.btn-cancel').attr('href', cancelRedirect);
+        } else {
+            $('.btn-cancel').attr('href', document.referrer);
+        }
+
+        {% if validationFailed %}
+        $(function() {
+            $.backsies.setUnsaved(true);
+        })
+        {% endif %}
+
+        {% for col in model.AdminListFields3Col() %}
+        {% for field in col.Fields %}
+
+        {% if field.Type == "date" || field.Type == "date-warning" %}
+        var d = new Date({{model.ByField(field.Title)}} * 1000);
+
+
+        $("#{{ field.Title }}_datepicker").datetimepicker({
+            changeMonth: true,
+            changeYear: true,
+
+//                controlType: 'select',
+//                oneLine: true,
+            onSelect: function() {
+                if ($("#{{ field.Title }}_datepicker").datetimepicker("getDate")) {
+                    {% if field.Type == "date-warning" && id != "-1" %}
+                    if ($('#{{ field.Title }}').val() == 0) {
+                        $.ajax({
+                            method: "POST",
+                            url: "/register/api/eventbabysit",
+                            dataType: "json",
+                            data: {
+                                eventId: "{{id}}"
+                            }
+                        }).success(function(data) {
+                            if (data.success) {
+                                if(data.warn_user) {
+                                    addAlert(data.warn_message, "warning");
+                                }
+                            }
+                            else {
+                                addAlert(data.error, "danger");
+                            }
+                        });
+                    }
+                    {% endif %}
+                    $("#{{ field.Title }}").val(
+                        $("#{{ field.Title }}_datepicker").datetimepicker("getDate").getTime() / 1000
+                    );
+                }
+            },
+            onClose: function() {
+                if ($("#{{ field.Title }}_datepicker").datetimepicker("getDate")) {
+                    $("#{{ field.Title }}").val(
+                        $("#{{ field.Title }}_datepicker").datetimepicker("getDate").getTime() / 1000
+                    );
+                }
+            }
+        });
+        var clearCal = $('<a />', {
+            text: 'Clear',
+            title: 'Clear Date',
+            class: '',
+            style: 'text-decoration: underline; cursor: pointer; word-break: keep-all;',
+            click: function(e) {
+                e.preventDefault();
+                // You have to do this to reset the time first.
+                $("#{{ field.Title }}_datepicker").datepicker("setDate", new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
+                $("#{{ field.Title }}_datepicker").datepicker("setDate", null);
+                $("#{{ field.Title }}").val(0);
+                $.backsies.setUnsaved;
+            }
+        }).appendTo($("#{{ field.Title }}_datepicker_clear"));
+
+        {% if model.ByField(field.Title) %}
+        // You have to do this to reset the time first.
+        $("#{{ field.Title }}_datepicker").datepicker("setDate", d);
+        $.backsies.setUnsaved(false);
+        {% endif %}
+        {% elif field.Type == "select-confirm" %}
+        $.backsies.ignoreEle($("#{{ field.Title }}"));
+        $("#{{ field.Title }}").on({
+            "focus" : function(e) {
+                $(this).data({ current: $(this).val() });
+            },
+            "change": function(e) {
+                if (!confirm("{{ model.ByFieldConfirm(field.Title) }}")) {
+                    $(this).val($(this).data("current"));
+                    $.backsies.setUnsaved(false);
+                    return false;
+                } else {
+                    $.backsies.setUnsaved;
+                    return true;
+                }
+            }
+        });
+
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    });
+</script>
+{% endblock %}

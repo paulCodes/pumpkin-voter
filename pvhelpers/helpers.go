@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"github.com/twinj/uuid"
 )
 
 func RenderTemplate(rw http.ResponseWriter, req *http.Request, tplFilename string, ctx pongo2.Context, sessionGroup string) {
@@ -97,4 +98,9 @@ func PrintServerConnectionDetails() {
 		}
 	}
 	fmt.Printf("\n")
+}
+
+func GenerateUUID() string {
+	uuid.SwitchFormat(uuid.FormatCanonical)
+	return uuid.NewV4().String()
 }
