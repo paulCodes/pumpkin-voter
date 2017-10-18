@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/static/favicon.ico">
 
-    <title>Training Locker</title>
+    <title>Pumpkin Voter</title>
 
     <link href="/static/3rd/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/static/3rd/qtip-2.2.1/jquery.qtip.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@
             <div class="uk-width-4-5">
               <div class="top-bar-content">
                   <div class="logo">
-                    <a href="{{ Reverse("admin_index") }}"><img src="/static/img/TL_small.png" style="height: 52px;" /></a>
+                    <a href="{{ Reverse("admin_index") }}"><img src="/static/img/pumpkin.png" style="height: 52px;" /></a>
                   </div>
                   <div class="top-bar-text">
                       <h1>{% block header %}{% endblock %}</h1>
@@ -52,14 +52,7 @@
             <a href="#menu-mobile"class="menu-mobile-trigger" uk-toggle><i class="fa fa-bars"></i> Menu</a>
             <nav class="uk-navbar profile-link">
               <ul class="uk-navbar-nav">
-                  <li class="uk-parent"><a href="">Welcome&nbsp;<em>{{ _username }}</em> &nbsp;<i class="fa fa-caret-down"></i></a>
 
-                  <div class="uk-dropdown uk-dropdown-navbar" data-uk-dropdown>
-                      <ul class="uk-nav uk-nav-navbar">
-                      <li><a {% if point_to == "profile" %}class="active"{% endif %}href="{{ Reverse("user_profile") }}"><i class="fa fa-user"></i> Profile</a></li>
-                      <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
-                      </ul>
-                  </div>
               </ul>
             </nav>
 
@@ -79,62 +72,22 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        {% if _userRole == "admin" %}
-                        <li>
-                            <a {% if point_to == "courses" %}class="active"{% endif %} href="{{ Reverse("courses") }}">
-                                <i class="fa fa-cube"></i>
-                                <span>Courses</span>
-                            </a>
-                        </li>
-                        {% endif %}
                         <li>
                             <a {% if point_to == "tokens" %}class="active"{% endif %} href="{{ Reverse("tokens") }}" >
                                 <i class="fa fa-key"></i>
-                                <span>Tokens</span>
+                                <span>Entries</span>
                             </a>
                         </li>
                         <li>
                             <a {% if point_to == "licenses" %}class="active"{% endif %}href="{{ Reverse("licenses") }}">
                                 <i class="fa fa-certificate"></i>
-                                <span>Licenses</span>
-                            </a>
-                        </li>
-                        {% if _userRole == "admin" %}
-                        <li>
-                            <a {% if point_to == "users" %}class="active"{% endif %}href="{{ Reverse("users") }}">
-                                <i class="fa fa-users"></i>
-                                <span>Users</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a {% if point_to == "organization" %}class="active"{% endif %}href="{{ Reverse("organization") }}">
-                                <i class="fa fa-sitemap"></i>
-                                <span>Organization</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a {% if point_to == "batch" %}class="active"{% endif %}href="{{ Reverse("stub_batch_view") }}">
-                                <i class="fa fa-files-o"></i>
-                                <span>Batches</span>
-                            </a>
-                        </li>
-                        {% endif %}
-                        <li>
-                            <a {% if point_to == "categories" %}class="active"{% endif %}href="{{ Reverse("list_categories", "id", "root") }}">
-                                <i class="fa fa-list-alt"></i>
                                 <span>Categories</span>
                             </a>
                         </li>
                         <li>
-                            <a {% if point_to == "reports" %}class="active"{% endif %}href="{{ Reverse("reports") }}">
-                                <i class="fa fa-bar-chart"></i>
-                                <span>Reports</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a {% if point_to == "usage" %}class="active"{% endif %}href="{{ Reverse("usage") }}">
-                            <i class="fa fa-history"></i>
-                            <span>Usage</span>
+                            <a {% if point_to == "users" %}class="active"{% endif %}href="{{ Reverse("users") }}">
+                                <i class="fa fa-users"></i>
+                                <span>Contests</span>
                             </a>
                         </li>
                     </ul>
@@ -176,21 +129,10 @@
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
 
                 <ul class="uk-nav uk-nav-default uk-list uk-list-divider">
-                    <li><a href="{{ Reverse("courses") }}">Courses</a></li>
-                    <li><a href="{{ Reverse("tokens") }}">Access Tokens</a></li>
-                    <li><a href="{{ Reverse("licenses") }}">Licenses</a></li>
-                    {% if _userRole == "admin" %}
-                    <li><a href="{{ Reverse("users") }}">Users</a></li>
-                    <li><a href="{{ Reverse("organization") }}">Organization</a></li>
-                    <li><a href="{{ Reverse("stub_batch_view") }}">Batches</a></li>
-                    <li><a href="{{ Reverse("usage") }}">Usage History</a></li>
-                    {% endif %}
-                    <li><a href="{{ Reverse("reports") }}">Reports</a></li>
-                    <li><a href="{{ Reverse("user_profile") }}">Profile</a></li>
-                    <li>
-                        <a href="#" onclick="$('#logoutForm').submit(); return true;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
-                        <form id="logoutForm" style="display: none;" action="/logout" method="post"></form>
-                    </li>
+                    <li><a href="{{ Reverse("dashboar") }}">Dashboar</a></li>
+                    <li><a href="{{ Reverse("tokens") }}">Entries</a></li>
+                    <li><a href="{{ Reverse("licenses") }}">Categories</a></li>
+                    <li><a href="{{ Reverse("licenses") }}">Contests</a></li>
                 </ul>
             </div>
         </div>
