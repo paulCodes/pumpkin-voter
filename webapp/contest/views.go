@@ -7,7 +7,6 @@ import (
 	"github.com/paulCodes/pumpkin-voter/webtypes"
 	"net/http"
 	"strings"
-	"fmt"
 	"github.com/gorilla/mux"
 )
 
@@ -20,7 +19,7 @@ func (app ContestApp) Contests(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic("An error has occured accessing your contests." + err.Error())
 	}
-	println(fmt.Sprintf("contests %v", contests))
+
 	models := []ContestLister{}
 	for _, contest := range contests {
 		models = append(models, ContestLister{
@@ -28,7 +27,7 @@ func (app ContestApp) Contests(w http.ResponseWriter, r *http.Request) {
 			Registry: app.Env.Registry,
 		})
 	}
-	println(fmt.Sprintf("models %v", models))
+
 	pvhelpers.RenderTemplate(w, r, "templates/contest/list.html",
 		pongo2.Context{
 			"point_to": "contest",

@@ -120,13 +120,28 @@
                                 >{{ model.ByField(field.Title) }}</textarea>
                         </div>
                         {% elif field.Type == "select" || field.Type == "select-confirm" %}
-                        <div class="col-sm-{{ col.InputWidth }}">
+                        <div class="uk-width-1-4@m">
                             <select id="{{ field.Title }}" name="{{ field.Title }}"
-                                    class="form-control default-input"
+                                    class="basic-single"
                                     title="{{ translations.Get(field.ClarifyingText) }}">
                                 {% for choice in model.FieldChoices(field.Title) %}
                                 <option value="{{ choice.0 }}"
                                         {% if model.ByFieldAsString(field.Title)== choice.0 %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% elif field.Type == "multiselect" || field.Type == "select-confirm" %}
+                        <div class="uk-width-1-4@m">
+                            <select id="{{ field.Title }}" name="{{ field.Title }}"
+                                    class="basic-multiple"
+                                    title="{{ field.Title }}" multiple="multiple">
+                                {% for choice in model.FieldChoices(field.Title) %}
+
+                                <option value="{{ choice.0 }}"
+                                        {% for s in model.ByFieldAsSelect(field.Title) %}
+                                        {% if s == choice.0 %}selected{% endif %}{% endfor %}>
                                     {{ choice.1 }}
                                 </option>
                                 {% endfor %}

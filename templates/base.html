@@ -18,6 +18,7 @@
     <!-- <link href="/static/css/main-old.css?_=2014091001" rel="stylesheet"> -->
     <link href="/static/css/main.min.css?_=2014091001" rel="stylesheet">
     <link href="/static/css/jquery.confirm.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 
     {% block css %}{% endblock %}
 
@@ -67,25 +68,25 @@
                 <div class="sidebar">
                     <ul>
                         <li>
-                            <a {% if point_to == "dashboard" %}class="active"{% endif %} href="/voter">
+                            <a {% if point_to == "dashboard" %}class="active"{% endif %} href="/voter" >
                                 <i class="fa fa-tachometer"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li>
-                            <a {% if point_to == "tokens" %}class="active"{% endif %} href="/contest" >
+                            <a {% if point_to == "entry" %}class="active"{% endif %} href="/voter/entry" >
                                 <i class="fa fa-key"></i>
                                 <span>Entries</span>
                             </a>
                         </li>
                         <li>
-                            <a {% if point_to == "licenses" %}class="active"{% endif %}href="{{ Reverse("licenses") }}">
+                            <a {% if point_to == "category" %}class="active"{% endif %}href="/voter/category" >
                                 <i class="fa fa-certificate"></i>
                                 <span>Categories</span>
                             </a>
                         </li>
                         <li>
-                            <a {% if point_to == "users" %}class="active"{% endif %}href="/voter/contest">
+                            <a {% if point_to == "contest" %}class="active"{% endif %}href="/voter/contest">
                                 <i class="fa fa-users"></i>
                                 <span>Contests</span>
                             </a>
@@ -149,6 +150,7 @@
         <script src="/static/3rd/datatables-1.10.11/media/js/jquery.dataTables.min.js"></script>
         <script src="/static/3rd/datatables-1.10.11/media/js/dataTables.bootstrap.min.js"></script>
         <script src="/static/3rd/jquery.confirm.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 
         <script type="text/javascript">
         $(function() {
@@ -166,6 +168,8 @@
                     at: 'right bottom'
                 }
             });
+            $('.basic-multiple').select2();
+            $('.basic-single').select2();
         })
         </script>
         {% block body_js %}{% endblock %}

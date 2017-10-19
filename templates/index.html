@@ -15,9 +15,7 @@
                 {% for field in stub.AdminListFields() %}
                 {% if field.1 != "no-form" %}
                 <th class="reorderable" data-name="{{ field.0 }}" data-filter="{{ field.2 }}">{{ stub.GorpTitle(field.0) }}&nbsp;
-                    <a id="ecf-open-{{ forloop.Counter0 }}" onclick="openTableHeaderOptions({{ forloop.Counter0 }})" class="btn-table-header">
-                        <i class="fa fa-caret-down"></i>
-                    </a>
+
                 </th>
                 {% endif %}
                 {% endfor %}

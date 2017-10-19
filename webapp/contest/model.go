@@ -5,6 +5,7 @@ import (
 	"github.com/paulCodes/pumpkin-voter/domain/mysql"
 	"strconv"
 	"github.com/paulCodes/pumpkin-voter/pvform"
+	"strings"
 )
 
 type ContestLister struct {
@@ -20,7 +21,6 @@ func (e ContestLister) AdminListFields() [][]string {
 	return [][]string{
 		{"Id", "text", "text"},
 		{"Title", "text", "text"},
-		{"CategoryIds", "text", "text"},
 		{"Active", "text", "text"},
 	}
 }
@@ -33,7 +33,6 @@ func (e ContestLister) AdminListFields3Col() []pvform.ThreeCol {
 			InputWidth: 9,
 			Fields: []pvform.FormField{
 				{Title: "Title", Type: "text", ClarifyingText: "CT_PrepAdmin_ExamEdit_Name", IsRequired: true},
-				{Title: "CategoryIds", Type: "text", ClarifyingText: "CT_PrepAdmin_ExamEdit_Tag",},
 				{Title: "Active", Type: "select", ClarifyingText: "CT_PrepAdmin_ExamEdit_Active"},
 			},
 		},
@@ -54,6 +53,11 @@ func (e ContestLister) ByField(s string) interface{} {
 		return e.Active
 	}
 	panic("ByField: field not found: " + s)
+}
+
+func (e ContestLister) ByFieldAsSelect(s string) []string {
+	return strings.Split(e.ByField(s).(string),",")
+
 }
 
 func (e ContestLister) ByFieldForList(s string) interface{} {

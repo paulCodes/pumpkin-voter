@@ -2,14 +2,39 @@ package mysql
 
 import (
 	"github.com/paulCodes/pumpkin-voter/domain"
-	"strconv"
 	"strings"
 )
 
-type MysqlEntryStore MysqlStore
+type MysqlEntryStore struct {
+	db MysqlStore
+}
 
 func (s MysqlStore) EntryStore() MysqlEntryStore {
-	return MysqlEntryStore(s)
+	return MysqlEntryStore{db: s}
+}
+
+func (s MysqlEntryStore) All() (entries []domain.Entry, err error) {
+	_, err = s.db.Select(&entries, `select * from entry`)
+	return
+}
+
+func (s MysqlEntryStore) Add(entry domain.Entry) error {
+	return s.db.Insert(&entry)
+}
+
+func (e MysqlEntryStore) GetID(id string) (entry domain.Entry, err error) {
+	err = e.db.SelectOne(&entry, `select * from entry where id = ?`, id)
+	return
+}
+
+func (e MysqlEntryStore) Replace(entry domain.Entry) error {
+	_, err := e.db.Update(&entry)
+	return err
+}
+
+func (e MysqlEntryStore) Delete(entry domain.Entry) error {
+	_, err := e.db.Delete(&entry)
+	return err
 }
 
 func (s MysqlEntryStore) getIdColumn() string {
@@ -17,7 +42,7 @@ func (s MysqlEntryStore) getIdColumn() string {
 }
 
 func (s MysqlEntryStore) getNonIdColumnArray(includeCreated bool, includeUpdated bool) []string {
-	cols := []string{"title"}
+	cols := []string{"title", "category_ids", "contest_id"}
 	return cols
 }
 
@@ -30,66 +55,5 @@ func (s MysqlEntryStore) getColumns(withId bool) string {
 }
 
 func (s MysqlEntryStore) fillObjRow(entry *domain.Entry, row RowScanner) error {
-	return row.Scan(&entry.Id, &entry.Title)
-}
-
-func (s MysqlEntryStore) Add(entry *domain.Entry) (err error) {
-	stmt, err := s.Prepare("INSERT INTO entry (" + s.getColumns(false) + ") VALUES (?, ?)")
-	if err != nil {
-		return
-	}
-
-	res, err := stmt.Exec(entry.Id, entry.Title)
-	if err != nil {
-		return
-	}
-
-	newId, err := res.LastInsertId()
-	if err != nil {
-		return
-	}
-
-	entry.Id = strconv.FormatInt(newId, 10)
-	return
-}
-
-func (s MysqlEntryStore) Replace(entry *domain.Entry) (err error) {
-	setParams := []string{}
-	for _, column := range s.getNonIdColumnArray(false, true) {
-		setParams = append(setParams, column+" = ?")
-	}
-	stmt, err := s.Prepare("UPDATE entry SET " + strings.Join(setParams, ", ") + " WHERE id = ?")
-	if err != nil {
-		return
-	}
-
-	_, err = stmt.Exec(entry.Id, entry.Title)
-	if err != nil {
-		return
-	}
-	return
-}
-
-func (s MysqlEntryStore) Delete(id string) (err error) {
-	stmt, err := s.Prepare("DELETE FROM entry WHERE id = ?")
-
-	if err != nil {
-		return
-	}
-	_, err = stmt.Exec(id)
-	return
-}
-
-func (s MysqlEntryStore) FindById(id string) (entry domain.Entry, err error) {
-	stmtOut, err := s.Prepare("SELECT " + s.getColumns(true) + " FROM entry WHERE id = ?")
-	if err != nil {
-		return
-	}
-	defer func() {
-		if cerr := stmtOut.Close(); cerr != nil && err == nil {
-			err = cerr
-		}
-	}()
-	err = s.fillObjRow(&entry, stmtOut.QueryRow(id))
-	return
+	return row.Scan(&entry.Id, &entry.Title, &entry.CategoryIds, &entry.ContestId)
 }

@@ -1,0 +1,11 @@
+{% extends "../list.html" %}
+{% block header %}ALL THE ENTRIES{% endblock %}
+
+{% block button_action %}
+<button class="btn btn-primary" onclick="location.href='/voter/entry/create'"><i class="fa fa-plus-circle"></i> Create Entry</button>
+{% endblock %}
+
+{% block row_links %}
+<a href="/voter/entry/edit/{{ model.Entry.Id }}"><i class="fa fa-edit" title="Edit"></i></a>
+<a class="delete-course" href="/voter/entry/delete/{{ model.Entry.Id }}"><i class="fa fa-trash" title="Delete Entry"></i></a>
+{% endblock %}

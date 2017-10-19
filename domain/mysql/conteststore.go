@@ -18,6 +18,11 @@ func (s MysqlContestStore) All() (contests []domain.Contest, err error) {
 	return
 }
 
+func (s MysqlContestStore) GetAllAsSelect() (contests [][]string) {
+	_, _ = s.db.Select(&contests, `select id, title from contest where active = '1'`)
+	return
+}
+
 func (s MysqlContestStore) Add(contest domain.Contest) error {
 	return s.db.Insert(&contest)
 }

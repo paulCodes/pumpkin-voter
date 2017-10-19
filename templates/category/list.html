@@ -1,0 +1,11 @@
+{% extends "../list.html" %}
+{% block header %}ALL THE CATEGORIES{% endblock %}
+
+{% block button_action %}
+<button class="btn btn-primary" onclick="location.href='/voter/category/create'"><i class="fa fa-plus-circle"></i> Create Category</button>
+{% endblock %}
+
+{% block row_links %}
+<a href="/voter/category/edit/{{ model.Category.Id }}"><i class="fa fa-edit" title="Edit"></i></a>
+<a class="delete-course" href="/voter/category/delete/{{ model.Category.Id }}"><i class="fa fa-trash" title="Delete Category"></i></a>
+{% endblock %}
