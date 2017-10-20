@@ -26,3 +26,14 @@ type Vote struct {
 	EntryId    string `db:"entry_id"`
 	ContestId  string `db:"contest_id"`
 }
+
+type CategoryEntries struct {
+	Category Category
+	Entries []Entry
+}
+
+type VoteForm struct {
+	ContestTitle string
+	ContestId string
+	EntryByCategory []CategoryEntries
+}

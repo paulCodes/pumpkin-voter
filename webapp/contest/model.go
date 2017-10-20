@@ -19,7 +19,6 @@ func (e ContestLister) GorpTitle(fieldName string) string {
 
 func (e ContestLister) AdminListFields() [][]string {
 	return [][]string{
-		{"Id", "text", "text"},
 		{"Title", "text", "text"},
 		{"Active", "text", "text"},
 	}
@@ -32,8 +31,8 @@ func (e ContestLister) AdminListFields3Col() []pvform.ThreeCol {
 			LabelWidth: 3,
 			InputWidth: 9,
 			Fields: []pvform.FormField{
-				{Title: "Title", Type: "text", ClarifyingText: "CT_PrepAdmin_ExamEdit_Name", IsRequired: true},
-				{Title: "Active", Type: "select", ClarifyingText: "CT_PrepAdmin_ExamEdit_Active"},
+				{Title: "Title", Type: "text", ClarifyingText: "Contest Title", IsRequired: true},
+				{Title: "Active", Type: "select", ClarifyingText: "Is this contest active?"},
 			},
 		},
 	}

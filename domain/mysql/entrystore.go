@@ -18,6 +18,16 @@ func (s MysqlEntryStore) All() (entries []domain.Entry, err error) {
 	return
 }
 
+func (s MysqlEntryStore) FindAllForCategoryId(categoryId string) (entries []domain.Entry, err error) {
+	_, err = s.db.Select(&entries, `select * from entry where FIND_IN_SET(?, category_ids) `, categoryId)
+	return
+}
+
+func (s MysqlEntryStore) FindAllCategoryIdFromContest(contestId string) (categoryIds []string, err error) {
+	_, err = s.db.Select(&categoryIds, `select category_ids from entry where ? = contest_id`, contestId)
+	return
+}
+
 func (s MysqlEntryStore) Add(entry domain.Entry) error {
 	return s.db.Insert(&entry)
 }

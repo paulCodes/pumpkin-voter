@@ -23,6 +23,8 @@ func AddRoutes(router *mux.Router, env webtypes.Env) {
 	prep.HandleFunc("/contest/create", contestApp.Create).Methods("GET", "POST")
 	prep.HandleFunc("/contest/edit/{contestId}", contestApp.Edit).Methods("GET", "POST")
 	prep.HandleFunc("/contest/delete/{contestId}", contestApp.Delete).Methods("GET", "POST")
+	prep.HandleFunc("/contest/results/{contestId}", contestApp.Results).Methods("GET", "POST")
+	prep.HandleFunc("/contest/vote/{contestId}", contestApp.Vote).Methods("GET", "POST")
 
 	categoryApp := category.CategoryApp{ Env: env}
 	prep.HandleFunc("/category", categoryApp.Categories).Methods("GET", "POST")
@@ -36,6 +38,4 @@ func AddRoutes(router *mux.Router, env webtypes.Env) {
 	prep.HandleFunc("/entry/create", entryApp.Create).Methods("GET", "POST")
 	prep.HandleFunc("/entry/edit/{entryId}", entryApp.Edit).Methods("GET", "POST")
 	prep.HandleFunc("/entry/delete/{entryId}", entryApp.Delete).Methods("GET", "POST")
-
-	prep.HandleFunc("/vote", app.Index).Methods("POST")
 }

@@ -1,0 +1,19 @@
+{% extends "../base.html" %}
+
+{% block main %}
+<form method="post" id="admin-form" class="uk-form uk-form-stacked">
+    <h3 class="">{{ model.ContestTitle }}</h3>
+{{model}}
+    {% for categoryEntry in model.EntryByCategory %}
+    <div class="uk-form-row">
+        <span class="uk-form-label">For {{categoryEntry.Category.Title}} category:</span>
+        <div class="uk-form-controls">
+            {% for entry in categoryEntry.Entries %}
+            <label><input type="radio" name="{{ categoryEntry.Category.Id}}" value="{{ entry.Id }}"> {{ entry.Title }}</label>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    <a class="uk-button uk-button-primary" onclick="$('#admin-form').submit();">Vote</a>
+</form>
+{% endblock %}

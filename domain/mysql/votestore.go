@@ -2,14 +2,39 @@ package mysql
 
 import (
 	"github.com/paulCodes/pumpkin-voter/domain"
-	"strconv"
 	"strings"
 )
 
-type MysqlVoteStore MysqlStore
+type MysqlVoteStore struct {
+	db MysqlStore
+}
 
 func (s MysqlStore) VoteStore() MysqlVoteStore {
-	return MysqlVoteStore(s)
+	return MysqlVoteStore{db: s}
+}
+
+func (s MysqlVoteStore) All() (votes []domain.Vote, err error) {
+	_, err = s.db.Select(&votes, `select * from vote`)
+	return
+}
+
+func (s MysqlVoteStore) Add(vote domain.Vote) error {
+	return s.db.Insert(&vote)
+}
+
+func (e MysqlVoteStore) GetID(id string) (vote domain.Vote, err error) {
+	err = e.db.SelectOne(&vote, `select * from vote where id = ?`, id)
+	return
+}
+
+func (e MysqlVoteStore) Replace(vote domain.Vote) error {
+	_, err := e.db.Update(&vote)
+	return err
+}
+
+func (e MysqlVoteStore) Delete(vote domain.Vote) error {
+	_, err := e.db.Delete(&vote)
+	return err
 }
 
 func (s MysqlVoteStore) getIdColumn() string {
@@ -30,66 +55,5 @@ func (s MysqlVoteStore) getColumns(withId bool) string {
 }
 
 func (s MysqlVoteStore) fillObjRow(vote *domain.Vote, row RowScanner) error {
-	return row.Scan(&vote.Id, &vote.ContestId, &vote.EntryId, &vote.CategoryId)
-}
-
-func (s MysqlVoteStore) Add(vote *domain.Vote) (err error) {
-	stmt, err := s.Prepare("INSERT INTO vote (" + s.getColumns(false) + ") VALUES (?, ?)")
-	if err != nil {
-		return
-	}
-
-	res, err := stmt.Exec(vote.Id, vote.ContestId, vote.EntryId, vote.CategoryId)
-	if err != nil {
-		return
-	}
-
-	newId, err := res.LastInsertId()
-	if err != nil {
-		return
-	}
-
-	vote.Id = strconv.FormatInt(newId, 10)
-	return
-}
-
-func (s MysqlVoteStore) Replace(vote *domain.Vote) (err error) {
-	setParams := []string{}
-	for _, column := range s.getNonIdColumnArray(false, true) {
-		setParams = append(setParams, column+" = ?")
-	}
-	stmt, err := s.Prepare("UPDATE vote SET " + strings.Join(setParams, ", ") + " WHERE id = ?")
-	if err != nil {
-		return
-	}
-
-	_, err = stmt.Exec(vote.Id, vote.ContestId, vote.EntryId, vote.CategoryId)
-	if err != nil {
-		return
-	}
-	return
-}
-
-func (s MysqlVoteStore) Delete(id string) (err error) {
-	stmt, err := s.Prepare("DELETE FROM vote WHERE id = ?")
-
-	if err != nil {
-		return
-	}
-	_, err = stmt.Exec(id)
-	return
-}
-
-func (s MysqlVoteStore) FindById(id string) (vote domain.Vote, err error) {
-	stmtOut, err := s.Prepare("SELECT " + s.getColumns(true) + " FROM vote WHERE id = ?")
-	if err != nil {
-		return
-	}
-	defer func() {
-		if cerr := stmtOut.Close(); cerr != nil && err == nil {
-			err = cerr
-		}
-	}()
-	err = s.fillObjRow(&vote, stmtOut.QueryRow(id))
-	return
+	return row.Scan(&vote.Id, &vote.ContestId, &vote.CategoryId, &vote.EntryId)
 }

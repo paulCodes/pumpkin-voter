@@ -18,7 +18,6 @@ func (e CategoryLister) GorpTitle(fieldName string) string {
 
 func (e CategoryLister) AdminListFields() [][]string {
 	return [][]string{
-		{"Id", "flat", "text"},
 		{"Title", "text", "text"},
 		{"Active", "text", "text"},
 	}
