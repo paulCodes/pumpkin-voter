@@ -12,6 +12,9 @@
         <table id="contest-table" class="uk-table uk-table-striped">
             <thead>
             <tr>
+                <th class="no-sort" {% block table_head_column1_styles %}style="width: 45px;"{% endblock %}>
+                    &nbsp;
+                </th>
                 {% for field in stub.AdminListFields() %}
                 {% if field.1 != "no-form" %}
                 <th class="reorderable" data-name="{{ field.0 }}" data-filter="{{ field.2 }}">{{ stub.GorpTitle(field.0) }}&nbsp;
@@ -22,8 +25,13 @@
             </tr>
             </thead>
             <tbody>
+
         {% for model in models %}
         <tr>
+            <td>
+                <a href="/voter/contest/vote/{{ model.Contest.Id }}"><i class="fa fa-check-square-o" title="Vote"></i></a>
+                <a href="/voter/contest/results/{{ model.Contest.Id }}"><i class="fa fa-bar-chart" title="Results"></i></a>
+            </td>
         {% for field in model.AdminListFields() %}
         <td>
             {% trim %}

@@ -102,7 +102,32 @@
                             {% block content_spacing %}
 
                             {% endblock %}
-
+                            {% if FlashesSingleType && SessionFlashes|length %}
+                            <div class="alert alert-dismissible alert-{{ FlashesSingleTypeType }}" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {% if SessionFlashes|length > 1 %}
+                                {% if SessionFlashes.0.MsgType != "success" %}
+                                There are multiple problems on this page:<br />
+                                {% endif %}
+                                <ul>
+                                    {% for flash in SessionFlashes %}
+                                    <li>{{ flash.Msg }}<br /></li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                {% for flash in SessionFlashes %}
+                                {{ flash.Msg }}<br />
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            {% else %}
+                            {% for flash in SessionFlashes %}
+                            <div class="alert alert-dismissible alert-{{ flash.MsgType }}" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{ flash.Msg }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
                             {% if _flashes %}
                             <div class="flashes">
                                 {% for message in _flashes %}
@@ -130,10 +155,10 @@
                 <button class="uk-offcanvas-close" type="button" uk-close></button>
 
                 <ul class="uk-nav uk-nav-default uk-list uk-list-divider">
-                    <li><a href="{{ Reverse("dashboar") }}">Dashboar</a></li>
-                    <li><a href="{{ Reverse("tokens") }}">Entries</a></li>
-                    <li><a href="{{ Reverse("licenses") }}">Categories</a></li>
-                    <li><a href="{{ Reverse("licenses") }}">Contests</a></li>
+                    <li><a href="/voter">Dashboard</a></li>
+                    <li><a href="/voter/entry">Entries</a></li>
+                    <li><a href="/voter/category">Categories</a></li>
+                    <li><a href="/voter/contest">Contests</a></li>
                 </ul>
             </div>
         </div>

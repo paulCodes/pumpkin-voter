@@ -1,0 +1,21 @@
+{% extends "../base.html" %}
+
+{% block main %}
+<h3 class="">Results for {{ model.ContestTitle }}</h3>
+<ul class="uk-subnav uk-subnav-pill" uk-switcher>
+    {% for categoryVoteCalc in model.Results %}
+    <li><a href="#">{{ categoryVoteCalc.Category.Title }}</a></li>
+    {% endfor %}
+</ul>
+<ul class="uk-switcher uk-margin">
+    {% for categoryVoteCalc in model.Results %}
+    <li>
+        <ul class="uk-list uk-list-divider">
+            {% for voteCalc in categoryVoteCalc.VoteCalcs %}
+            <li><span class="uk-badge">{{ voteCalc.Total }}</span> {{ voteCalc.EntryTitle }} </li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

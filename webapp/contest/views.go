@@ -149,9 +149,43 @@ func (app ContestApp) Results(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/voter/contest", http.StatusFound)
 		return
 	}
-contest = contest
+
+	tempcategoryIds, err := app.Env.Registry.Entry.FindAllCategoryIdFromContest(contest.Id)
+	log.Printf("tenpCategoryIds %v %v", tempcategoryIds,err)
+
+	var categoryIds []string
+	for _, catIds := range tempcategoryIds {
+		cids := strings.Split(catIds, ",")
+		for _, cid := range cids {
+			if !stringInSlice(cid, categoryIds) {
+				categoryIds = append(categoryIds, cid)
+			}
+		}
+	}
+	var contestResults domain.ContestResults
+	var results []domain.CategoryVoteCalc
+	for _, catId := range categoryIds {
+		var categoryVoteCalc domain.CategoryVoteCalc
+		voteCalcs := app.Env.Registry.Contest.ResultsByContestIdAndCategoryId(contest.Id, catId)
+		category, _ := app.Env.Registry.Category.GetID(catId)
+
+log.Printf("voteCalcs %v", voteCalcs)
+		categoryVoteCalc.Category = category
+		categoryVoteCalc.VoteCalcs = voteCalcs
+		results = append(results, categoryVoteCalc)
+	}
+	log.Printf("results %v", results)
+	contestResults.ContestId = contest.Id
+	contestResults.ContestTitle = contest.Title
+	contestResults.Results = results
+
 	session.Save(r, w)
-	http.Redirect(w, r, "/voter/contest", http.StatusFound)
+	ctx := pongo2.Context{
+		"point_to":         "contest",
+		"model":            contestResults,
+		"id":               contest.Id,
+	}
+	pvhelpers.RenderTemplate(w, r, "templates/vote/voteResults.html", ctx, "voter")
 }
 
 func (app ContestApp) Vote(w http.ResponseWriter, r *http.Request) {

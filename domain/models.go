@@ -37,3 +37,19 @@ type VoteForm struct {
 	ContestId string
 	EntryByCategory []CategoryEntries
 }
+
+type ContestResults struct {
+	ContestTitle string
+	ContestId string
+	Results []CategoryVoteCalc
+}
+
+type CategoryVoteCalc struct {
+	Category Category
+	VoteCalcs []VoteCalc
+}
+
+type VoteCalc struct {
+	EntryTitle string `db:"entry"`
+	Total int `db:"votes"`
+}

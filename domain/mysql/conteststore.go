@@ -23,6 +23,18 @@ func (s MysqlContestStore) GetAllAsSelect() (contests [][]string) {
 	return
 }
 
+func (s MysqlContestStore) ResultsByContestIdAndCategoryId(contestId string, categoryId string) (voteCalcs []domain.VoteCalc) {
+	_, _ = s.db.Select(&voteCalcs, `select e.title as "entry", COUNT(e.title) as "votes"
+	from vote v
+	JOIN  entry e on v.entry_id = e.id
+	JOIN category c on v.category_id = c.id
+	where v.contest_id = ?
+	and v.category_id = ?
+	GROUP by v.entry_id
+	Order by votes desc;`,contestId,categoryId)
+	return
+}
+
 func (s MysqlContestStore) Add(contest domain.Contest) error {
 	return s.db.Insert(&contest)
 }
