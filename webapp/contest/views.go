@@ -229,6 +229,10 @@ func (app ContestApp) Vote(w http.ResponseWriter, r *http.Request) {
 				log.Printf("vote save failed %v", err)
 			}
 		}
+
+		session.Save(r, w)
+		http.Redirect(w, r, fmt.Sprintf("/voter"), http.StatusFound)
+		return
 	}
 
 	session.Save(r, w)
